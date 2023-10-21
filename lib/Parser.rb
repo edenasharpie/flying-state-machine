@@ -15,12 +15,17 @@ module FlyingStateMachine
 
         # input for the machine
         rule(:input) {
-            str("input") >> spaces? >> bit.repeat
+            str("input") >>
+            spaces? >>
+            bit.repeat >>
+            newline >>
+            node.repeat
         }
 
         # state machine nodes
         rule(:node) {
-            (state | machine) >> newline
+            (state | machine) >>
+            newline
         }
 
         # states
@@ -46,3 +51,9 @@ module FlyingStateMachine
     end
     
 end
+
+parser = FlyingStateMachine::Parser.new
+#p File.read(File.dirname(__FILE__) + "/../examples/example-1.fsm")
+p parser.parse(File.read(File.dirname(__FILE__) + "/../examples/example-1.fsm"))
+
+
