@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'optparse/URI'
+
+require 'parslet'
+require_relative '../lib/Parser.rb'
+
+options = {}
+OptionParser.new do |opts|
+    opts.banner = "Usage: fsm <file> [options]"
+
+    opts.on("-f", "--file FILE", URI, "input file") do |f|
+        options[:filename] = f
+    end
+
+    opts.on("-v", "--[no-]verbose", "debug output") do |v|
+        options[:verbose] = v
+    end
+end.parse!
+
+p options
